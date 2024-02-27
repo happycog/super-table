@@ -21,7 +21,7 @@ class SuperTableBlock extends InputObjectType
      */
     public static function getType(SuperTableField $context): mixed
     {
-        $typeName = $context->handle . '_SuperTableInput';
+        $typeName = $context->handle . '_' . $context->id . '_SuperTableInput';
 
         if ($inputType = GqlEntityRegistry::getEntity($typeName)) {
             return $inputType;
@@ -60,7 +60,7 @@ class SuperTableBlock extends InputObjectType
 
         // All the different field block types now get wrapped in a container input.
         // If two different block types are passed, the selected block type to parse is undefined.
-        $blockTypeContainerName = $context->handle . '_SuperTableBlockContainerInput';
+        $blockTypeContainerName = $context->handle . '_' . $context->id . '_SuperTableBlockContainerInput';
         $blockContainerInputType = GqlEntityRegistry::createEntity($blockTypeContainerName, new InputObjectType([
             'name' => $blockTypeContainerName,
             'fields' => function() use ($blockInputTypes) {
